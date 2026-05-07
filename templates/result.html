@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Prediction Result</title>
+    <title>Analysis Result</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -12,59 +12,116 @@
 
 <body>
 
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <div class="logo">
+            AuthentiNews AI
+        </div>
+
+        <div>
+
+            <a href="/">
+                <button>Home</button>
+            </a>
+
+            <a href="/dashboard">
+                <button>Dashboard</button>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Container -->
+
     <div class="container">
 
         <div class="result-box">
 
+            <!-- Prediction -->
+
             {% if prediction == "REAL NEWS" %}
 
-                <h1 class="real">
+                <div class="prediction-badge real-badge">
+
                     {{ prediction }}
-                </h1>
+
+                </div>
 
             {% else %}
 
-                <h1 class="fake">
+                <div class="prediction-badge fake-badge">
+
                     {{ prediction }}
-                </h1>
+
+                </div>
 
             {% endif %}
 
-            <div class="confidence">
 
-                Confidence Score:
-                {{ confidence }}%
+            <!-- Confidence -->
+
+            <div class="confidence-section">
+
+                <h2>
+                    Confidence Score
+                </h2>
+
+                <div class="progress-bar">
+
+                    <div class="progress-fill"
+                         style="width: {{ confidence }}%;">
+
+                        {{ confidence }}%
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <br><br>
 
-            <h2>
-                AI Explanation
-            </h2>
+            <!-- Explanation -->
 
-            <br>
+            <div class="explanation-section">
 
-            {% for word, score in explanation %}
+                <h2>
+                    AI Explanation
+                </h2>
 
-                <p>
+                <div class="explanation-grid">
 
-                    <strong>{{ word }}</strong>
+                    {% for word, score in explanation %}
 
-                    →
+                        <div class="explanation-card">
 
-                    {{ score }}
+                            <h3>
+                                {{ word }}
+                            </h3>
 
-                </p>
+                            <p>
+                                Influence:
+                                {{ score }}
+                            </p>
 
-            {% endfor %}
+                        </div>
 
-            <br>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Button -->
 
             <a href="/">
 
                 <button>
-                    Check Another News
+                    Analyze Another News
                 </button>
 
             </a>

@@ -178,12 +178,28 @@ def dashboard():
     ).all()
 
 
+    # Analytics
+    total_predictions = len(history)
+
+    real_count = len([
+        item for item in history
+        if item.prediction == "REAL NEWS"
+    ])
+
+    fake_count = len([
+        item for item in history
+        if item.prediction == "FAKE NEWS"
+    ])
+
+
     return render_template(
         "dashboard.html",
         history=history,
-        user=session["user"]
+        user=session["user"],
+        total_predictions=total_predictions,
+        real_count=real_count,
+        fake_count=fake_count
     )
-
 
 # =========================
 # LOGOUT ROUTE

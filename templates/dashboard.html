@@ -12,6 +12,28 @@
 
 <body>
 
+    <!-- Navbar -->
+    <div class="navbar">
+
+        <div class="logo">
+            AuthentiNews AI
+        </div>
+
+        <div>
+
+            <a href="/">
+                <button>Home</button>
+            </a>
+
+            <a href="/logout">
+                <button>Logout</button>
+            </a>
+
+        </div>
+
+    </div>
+
+
     <div class="container">
 
         <h1>User Dashboard</h1>
@@ -20,33 +42,106 @@
             Welcome {{ user }}
         </p>
 
-        <br>
 
-        <a href="/">
+        <!-- Stats -->
+<div class="stats-container">
 
-            <button>
-                Detect News
-            </button>
+    <div class="stat-card">
 
-        </a>
+        <h2>
+            {{ total_predictions }}
+        </h2>
 
-        <a href="/logout">
+        <p>
+            Total Predictions
+        </p>
 
-            <button>
-                Logout
-            </button>
+    </div>
 
-        </a>
+    <div class="stat-card">
 
+        <h2 class="real">
+            {{ real_count }}
+        </h2>
+
+        <p>
+            Real News
+        </p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2 class="fake">
+            {{ fake_count }}
+        </h2>
+
+        <p>
+            Fake News
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Analytics Chart -->
+
+<div class="result-box">
+
+    <h2>
+        Analytics Overview
+    </h2>
+
+    <br>
+
+    <div class="chart-container">
+
+        <div class="chart-card">
+
+            <h3>Total Predictions</h3>
+
+            <div class="chart-number">
+                {{ total_predictions }}
+            </div>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h3>Real News</h3>
+
+            <div class="chart-number real">
+                {{ real_count }}
+            </div>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h3>Fake News</h3>
+
+            <div class="chart-number fake">
+                {{ fake_count }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- History -->
         <div class="result-box">
 
-            <h2>Prediction History</h2>
+            <h2>
+                Prediction History
+            </h2>
 
             <br>
 
             {% for item in history %}
 
-                <div style="margin-bottom:30px;">
+                <div class="history-card">
 
                     {% if item.prediction == "REAL NEWS" %}
 
@@ -70,10 +165,8 @@
                     <br>
 
                     <p>
-                        {{ item.news_text[:300] }}
+                        {{ item.news_text[:250] }}
                     </p>
-
-                    <hr>
 
                 </div>
 

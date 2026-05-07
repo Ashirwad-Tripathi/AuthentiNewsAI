@@ -17,15 +17,14 @@
 
 <body>
 
-    <div class="container">
+    <!-- Navbar -->
 
-        <h1>AuthentiNews AI</h1>
+    <div class="navbar">
 
-        <p>
-            AI Powered Fake News Detection System
-        </p>
+        <div class="logo">
+            AuthentiNews AI
+        </div>
 
-        <!-- Navigation -->
         <div class="nav-buttons">
 
             <a href="/login">
@@ -40,43 +39,55 @@
                 <button>Dashboard</button>
             </a>
 
-            <a href="/logout">
-                <button>Logout</button>
-            </a>
+        </div>
+
+    </div>
+
+
+    <!-- Main -->
+
+    <div class="container">
+
+        <h1>
+            Detect Fake News Using AI
+        </h1>
+
+        <p>
+            Advanced Fake News Detection using
+            BERT + Explainable AI
+        </p>
+
+
+        <div class="result-box">
+
+            <form action="/predict" method="POST">
+
+                <textarea
+                    name="news"
+                    placeholder="Paste article text here..."></textarea>
+
+                <input
+                    type="text"
+                    name="url"
+                    placeholder="OR paste article URL here">
+
+                <button type="submit">
+                    Analyze News
+                </button>
+
+            </form>
 
         </div>
 
-        <br><br>
-
-        <!-- Prediction Form -->
-        <form action="/predict" method="POST">
-
-            <textarea
-                name="news"
-                placeholder="Paste news article text here..."></textarea>
-
-            <br><br>
-
-            <input
-                type="text"
-                name="url"
-                placeholder="OR paste article URL here">
-
-            <br>
-
-            <button type="submit">
-                Detect News
-            </button>
-
-        </form>
 
         <!-- Loading -->
+
         <div id="loading">
 
             <div class="loader"></div>
 
-            <h2>
-                Analyzing News Using AI...
+            <h2 style="margin-top:20px;">
+                AI is analyzing the article...
             </h2>
 
         </div>
