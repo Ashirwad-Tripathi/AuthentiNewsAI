@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>User Dashboard</h1>
+
+        <p>
+            Welcome {{ user }}
+        </p>
+
+        <br>
+
+        <a href="/">
+
+            <button>
+                Detect News
+            </button>
+
+        </a>
+
+        <a href="/logout">
+
+            <button>
+                Logout
+            </button>
+
+        </a>
+
+        <div class="result-box">
+
+            <h2>Prediction History</h2>
+
+            <br>
+
+            {% for item in history %}
+
+                <div style="margin-bottom:30px;">
+
+                    {% if item.prediction == "REAL NEWS" %}
+
+                        <h3 class="real">
+                            {{ item.prediction }}
+                        </h3>
+
+                    {% else %}
+
+                        <h3 class="fake">
+                            {{ item.prediction }}
+                        </h3>
+
+                    {% endif %}
+
+                    <p>
+                        Confidence:
+                        {{ item.confidence }}%
+                    </p>
+
+                    <br>
+
+                    <p>
+                        {{ item.news_text[:300] }}
+                    </p>
+
+                    <hr>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

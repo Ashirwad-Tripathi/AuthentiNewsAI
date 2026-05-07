@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AuthentiNews AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>AuthentiNews AI</h1>
+
+        <p>
+            AI Powered Fake News Detection System
+        </p>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+
+            <a href="/login">
+                <button>Login</button>
+            </a>
+
+            <a href="/register">
+                <button>Register</button>
+            </a>
+
+            <a href="/dashboard">
+                <button>Dashboard</button>
+            </a>
+
+            <a href="/logout">
+                <button>Logout</button>
+            </a>
+
+        </div>
+
+        <br><br>
+
+        <!-- Prediction Form -->
+        <form action="/predict" method="POST">
+
+            <textarea
+                name="news"
+                placeholder="Paste news article text here..."></textarea>
+
+            <br><br>
+
+            <input
+                type="text"
+                name="url"
+                placeholder="OR paste article URL here">
+
+            <br>
+
+            <button type="submit">
+                Detect News
+            </button>
+
+        </form>
+
+        <!-- Loading -->
+        <div id="loading">
+
+            <div class="loader"></div>
+
+            <h2>
+                Analyzing News Using AI...
+            </h2>
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

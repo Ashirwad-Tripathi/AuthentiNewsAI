@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Prediction Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="result-box">
+
+            {% if prediction == "REAL NEWS" %}
+
+                <h1 class="real">
+                    {{ prediction }}
+                </h1>
+
+            {% else %}
+
+                <h1 class="fake">
+                    {{ prediction }}
+                </h1>
+
+            {% endif %}
+
+            <div class="confidence">
+
+                Confidence Score:
+                {{ confidence }}%
+
+            </div>
+
+            <br><br>
+
+            <h2>
+                AI Explanation
+            </h2>
+
+            <br>
+
+            {% for word, score in explanation %}
+
+                <p>
+
+                    <strong>{{ word }}</strong>
+
+                    →
+
+                    {{ score }}
+
+                </p>
+
+            {% endfor %}
+
+            <br>
+
+            <a href="/">
+
+                <button>
+                    Check Another News
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
