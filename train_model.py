@@ -1,103 +1,51 @@
 import pandas as pd
 import pickle
-import re
 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
+# Load dataset
+df = pd.read_csv("dataset/final_dataset.csv")
 
-# Clean text
-def clean_text(text):
-
-    text = str(text)
-
-    text = text.lower()
-
-    text = re.sub(r"http\S+", "", text)
-
-    text = re.sub(r"[^a-zA-Z ]", "", text)
-
-    text = re.sub(r"\s+", " ", text)
-
-    return text
-
-
-# Load datasets
-fake_df = pd.read_csv("dataset/Fake.csv")
-
-true_df = pd.read_csv("dataset/True.csv")
-
-
-# Labels
-fake_df["label"] = 0
-
-true_df["label"] = 1
-
-
-# Combine title + text
-fake_df["content"] = fake_df["title"] + " " + fake_df["text"]
-
-true_df["content"] = true_df["title"] + " " + true_df["text"]
-
-
-# Merge datasets
-data = pd.concat([fake_df, true_df])
-
-
-# Shuffle
-data = data.sample(frac=1, random_state=42)
-
-
-# Clean content
-data["content"] = data["content"].apply(clean_text)
-
-
+# Remove empty text rows
+df.dropna(subset=["text"], inplace=True)
 # Features and labels
-X = data["content"]
+X = df["text"]
+y = df["label"]
 
-y = data["label"]
-
-
-# Train test split
-x_train, x_test, y_train, y_test = train_test_split(
+# Split dataset
+X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
     test_size=0.2,
     random_state=42
 )
 
-
-# Vectorizer
+# Convert text to vectors
 vectorizer = TfidfVectorizer(
     stop_words="english",
     max_df=0.7
 )
 
-xv_train = vectorizer.fit_transform(x_train)
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
 
-xv_test = vectorizer.transform(x_test)
+# Train model
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train_tfidf, y_train)
 
-
-# Model
-model = LogisticRegression(max_iter=2000)
-
-model.fit(xv_train, y_train)
-
+# Prediction
+y_pred = model.predict(X_test_tfidf)
 
 # Accuracy
-predictions = model.predict(xv_test)
+score = accuracy_score(y_test, y_pred)
 
-accuracy = accuracy_score(y_test, predictions)
+print("Accuracy:", score)
 
-print("Accuracy:", accuracy)
-
-
-# Save files
+# Save model and vectorizer
 pickle.dump(model, open("model.pkl", "wb"))
-
 pickle.dump(vectorizer, open("vectorizer.pkl", "wb"))
 
-
-print("Training Complete")
+print("Model Saved Successfully")

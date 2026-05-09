@@ -34,7 +34,6 @@
 
     </div>
 
-
     <!-- Main Container -->
 
     <div class="container">
@@ -61,7 +60,6 @@
 
             {% endif %}
 
-
             <!-- Confidence -->
 
             <div class="confidence-section">
@@ -84,27 +82,82 @@
             </div>
 
 
-            <!-- Explanation -->
+            <!-- Source Credibility -->
+
+<div class="explanation-section">
+
+    <h2>
+        Source Credibility
+    </h2>
+
+    {% if source_status == "Trusted Source" %}
+
+        <div class="prediction-badge real-badge">
+
+            {{ source_status }}
+
+        </div>
+
+    {% elif source_status == "Unverified Source" %}
+
+        <div class="prediction-badge fake-badge">
+
+            {{ source_status }}
+
+        </div>
+
+    {% else %}
+
+        <div class="prediction-badge">
+
+            {{ source_status }}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+            <!-- AI Summary -->
 
             <div class="explanation-section">
 
                 <h2>
-                    AI Explanation
+                    AI Analysis Summary
+                </h2>
+
+                <div class="explanation-card">
+
+                    <p>
+                        {{ explanation.summary }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Influence Words -->
+
+            <div class="explanation-section">
+
+                <h2>
+                    Key Influential Terms
                 </h2>
 
                 <div class="explanation-grid">
 
-                    {% for word, score in explanation %}
+                    {% for item in explanation.influence_words %}
 
                         <div class="explanation-card">
 
                             <h3>
-                                {{ word }}
+                                {{ item.word }}
                             </h3>
 
                             <p>
-                                Influence:
-                                {{ score }}
+                                {{ item.impact }}
                             </p>
 
                         </div>

@@ -60,7 +60,9 @@
 
         <div class="result-box">
 
-            <form action="/predict" method="POST">
+            <form action="/predict"
+                  method="POST"
+                  onsubmit="showLoader()">
 
                 <textarea
                     name="news"
@@ -76,6 +78,22 @@
                 </button>
 
             </form>
+
+            <div id="loading">
+
+    <div class="loader"></div>
+
+    <h2>
+        AI is analyzing the news...
+    </h2>
+
+    <p>
+        Checking content authenticity,
+        source credibility,
+        and linguistic patterns.
+    </p>
+
+</div>
 
         </div>
 
@@ -95,6 +113,15 @@
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+
+function showLoader(){
+
+    document.getElementById("loading").style.display = "block";
+}
+
+</script>
+
 
 </body>
 

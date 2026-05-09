@@ -343,3 +343,199 @@ button:hover{
     margin-top:15px;
     color:#38bdf8;
 }
+
+/* =========================
+   PREMIUM RESULT PAGE UPDATE
+========================= */
+
+/* Smooth animations */
+
+.result-box,
+.explanation-card,
+.stat-card,
+.chart-card,
+button {
+
+    transition: all 0.3s ease;
+}
+
+
+/* Better result container */
+
+.result-box {
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* Glow effect */
+
+.result-box::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -50%;
+
+    left: -50%;
+
+    width: 200%;
+
+    height: 200%;
+
+    background: radial-gradient(
+        rgba(56,189,248,0.08),
+        transparent 70%
+    );
+
+    pointer-events: none;
+}
+
+
+/* Better explanation cards */
+
+.explanation-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 140px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.explanation-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 5px;
+
+    height: 100%;
+
+    background: linear-gradient(
+        180deg,
+        #2563eb,
+        #38bdf8
+    );
+}
+
+
+.explanation-card h3 {
+
+    font-size: 22px;
+
+    margin-bottom: 12px;
+
+    text-transform: capitalize;
+}
+
+
+.explanation-card p {
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    color: #cbd5e1;
+}
+
+
+/* Hover effect */
+
+.explanation-card:hover {
+
+    transform: translateY(-8px) scale(1.02);
+
+    box-shadow: 0 10px 25px rgba(56,189,248,0.2);
+
+    border: 1px solid rgba(56,189,248,0.3);
+}
+
+
+/* Better confidence heading */
+
+.confidence-section h2,
+.explanation-section h2 {
+
+    font-size: 30px;
+
+    margin-bottom: 10px;
+
+    color: #38bdf8;
+}
+
+
+/* Animated confidence bar */
+
+.progress-fill {
+
+    animation: loadBar 1.5s ease;
+}
+
+@keyframes loadBar {
+
+    from {
+
+        width: 0%;
+    }
+}
+
+
+/* Better buttons */
+
+button {
+
+    font-weight: bold;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* Mobile Responsive */
+
+@media(max-width:768px){
+
+    h1{
+
+        font-size:40px;
+    }
+
+    .navbar{
+
+        padding:20px;
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .prediction-badge{
+
+        font-size:24px;
+        padding:15px 25px;
+    }
+
+    .result-box{
+
+        padding:25px;
+    }
+
+    .chart-card,
+    .stat-card{
+
+        width:100%;
+    }
+}

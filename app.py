@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, session
 
+from flask import Flask, render_template, request, redirect, session
+import pickle
 from flask_sqlalchemy import SQLAlchemy
 
 import bcrypt
@@ -7,9 +8,13 @@ import bcrypt
 from utils.bert_predictor import predict_news_bert
 from utils.scraper import extract_news_from_url
 from utils.explainer import explain_prediction
+from utils.source_checker import check_source_credibility
 
 
 app = Flask(__name__)
+
+model = pickle.load(open("model.pkl", "rb"))
+vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
 app.secret_key = "authentinews_secret_key"
 
@@ -222,9 +227,13 @@ def predict():
 
     news_url = request.form["url"]
 
+    source_status = "No URL Provided"
+
 
     # Extract article from URL
     if news_url.strip() != "":
+
+        source_status = check_source_credibility(news_url)
 
         extracted_text = extract_news_from_url(news_url)
 
@@ -244,7 +253,10 @@ def predict():
 
 
     # Generate LIME explanation
-    explanation = explain_prediction(news_text)
+    explanation = explain_prediction(
+    news_text,
+    result
+    )
 
 
     # Save history
@@ -267,10 +279,11 @@ def predict():
 
 
     return render_template(
-        "result.html",
-        prediction=result,
-        confidence=confidence,
-        explanation=explanation
+         "result.html",
+         prediction=result,
+         confidence=confidence,
+         explanation=explanation,
+         source_status=source_status
     )
 
 
@@ -279,4 +292,4 @@ def predict():
 # =========================
 if __name__ == "__main__":
 
-    app.run(debug=True)
+    app.run(debug=True, port=5500)
